@@ -22,4 +22,14 @@ export class ShoppingListService {
     this.items.push(...items);
     this.itemsChanged.next(this.items.slice())
   };
+
+  updateItem(index: number, item: ListItem) {
+    this.items[index] = item;
+    this.itemsChanged.next(this.items.slice());
+  }
+
+  deleteItem(index: number) {
+    this.items.splice(index, 1);
+    this.itemsChanged.next(this.items.slice())
+  }
 }

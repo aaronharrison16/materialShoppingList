@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSnackBarModule } from "@angular/material";
+import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSnackBarModule, MatDialogModule } from "@angular/material";
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,6 +13,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { MyListsComponent } from './my-lists/my-lists.component';
 import { NavComponent } from './nav/nav.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     ShoppingEditComponent,
     ShoppingCartComponent,
     MyListsComponent,
-    NavComponent
+    NavComponent,
+    DialogDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,11 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     MatFormFieldModule,
     MatInputModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    DialogDeleteComponent
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]

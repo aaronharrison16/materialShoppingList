@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListItem } from '../shared/list-item.model';
 import { Subscription } from 'rxjs';
 import { ShoppingListService } from './shopping-list.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,17 +12,19 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
+  slForm: NgForm;
   items: ListItem[];
+  editMode = false
   private subscription: Subscription
 
-  constructor(private slservice: ShoppingListService, private snackbar: MatSnackBar) { }
+  constructor(private slService: ShoppingListService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.items = this.slservice.getItems();
-    this.subscription = this.slservice.itemsChanged
+    this.items = this.slService.getItems();
+    this.subscription = this.slService.itemsChanged
       .subscribe(
         (items: ListItem[]) => {
-          this.items = items
+          this.items = items;
         }
       )
   }
@@ -33,7 +37,23 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.snackbar.open('The item has been moved to your cart.', 'Dismiss', {duration: 3000});
   }
 
-  onEditItem(index: number) {
-    this.slservice.startedEditing.next(index)
+  onDelete(index: number) {
+    const dialogRef = this.dialog.open(DialogDeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.slService.deleteItem(index);
+      }
+    });
+  }
+
+  onEditStart(index: number) {
+    this.editMode = true;
+  }
+
+  onEditSubmit(index: number, form: NgForm) {
+    const value = form.value;
+    const item = new ListItem(value.name);
+    this.slService.updateItem(index, item);
+    this.editMode = false;
   }
 }
