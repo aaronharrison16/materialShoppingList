@@ -1,0 +1,23 @@
+<app-shopping-edit></app-shopping-edit>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let item of items; let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ item.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <button mat-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-button (click)="onEditItem(i)">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button mat-button (click)="onShoppingCartAdd()">
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+  </mat-expansion-panel>
+</mat-accordion>

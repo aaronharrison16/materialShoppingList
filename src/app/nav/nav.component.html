@@ -1,0 +1,49 @@
+<mat-toolbar color="primary">
+
+  <button mat-button routerLink="/">
+    <mat-icon>home</mat-icon>
+    Shopping List
+  </button>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/shopping-list">
+      <mat-icon>line_weight</mat-icon>
+    </button>
+    <button mat-button routerLink="/shopping-cart">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-button [matMenuTriggerFor]='account'><mat-icon>account_circle</mat-icon></button>
+    <mat-menu #account="matMenu">
+      <button mat-menu-item>Create Account</button>
+      <button mat-menu-item>Account Settings</button>
+      <button mat-menu-item>Sign In</button>
+      <button mat-menu-item>Sign Out</button>
+    </mat-menu>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/shopping-list">
+    <mat-icon>line_weight</mat-icon>
+    My List
+  </button>
+  <button mat-menu-item routerLink="/shopping-cart">
+    <mat-icon>shopping_cart</mat-icon>
+    My Cart
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]='account'>
+    <mat-icon>account_circle</mat-icon>
+    Account
+  </button>
+  <mat-menu #account="matMenu">
+    <button mat-menu-item>Create Account</button>
+    <button mat-menu-item>Account Settings</button>
+    <button mat-menu-item>Sign In</button>
+    <button mat-menu-item>Sign Out</button>
+  </mat-menu>
+</mat-menu>

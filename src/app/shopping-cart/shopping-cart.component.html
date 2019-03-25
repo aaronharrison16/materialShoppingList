@@ -1,0 +1,26 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Item Name
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <button mat-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button (click)='onShoppingCartRemove()' mat-button>
+      <mat-icon>remove_shopping_cart</mat-icon>
+    </button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<button mat-button style="float: right;">
+  <mat-icon>clear_all</mat-icon>
+  Clear Cart
+</button>
