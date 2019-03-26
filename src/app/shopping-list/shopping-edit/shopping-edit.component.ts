@@ -19,7 +19,6 @@ export class ShoppingEditComponent implements OnInit {
     const value = form.value
     const newItem = new ListItem(value.name)
     this.slService.addItem(newItem);
-    console.log(newItem)
     form.reset()
   }
 }

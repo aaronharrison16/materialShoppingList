@@ -12,11 +12,12 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
-  slForm: NgForm;
-  items: ListItem[];
-  editMode = false
   private subscription: Subscription
-
+  items: ListItem[];
+  index: number;
+  form: NgForm;
+  editMode = false;
+  
   constructor(private slService: ShoppingListService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.snackbar.open('The item has been moved to your cart.', 'Dismiss', {duration: 3000});
   }
 
-  onDelete(index: number) {
+  onDelete(index) {
     const dialogRef = this.dialog.open(DialogDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -46,11 +47,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditStart(index: number) {
-    this.editMode = true;
-  }
-
-  onEditSubmit(index: number, form: NgForm) {
+  onEdit(index, form) {
     const value = form.value;
     const item = new ListItem(value.name);
     this.slService.updateItem(index, item);

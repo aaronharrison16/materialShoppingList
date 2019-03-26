@@ -7,10 +7,9 @@
         {{ item.name }}
       </mat-panel-title>
       <mat-panel-title *ngIf="editMode">
-        <form (ngSubmit)='onEditSubmit(i, f)' #f='ngForm'>
+        <form (ngSubmit)='onEdit(i, f)' #f='ngForm'>
           <mat-form-field>
-            <mat-label>{{ item.name }}</mat-label>
-            <input matInput type="text" ngModel name='name' #itemName>
+            <input matInput type="text" [ngModel]="item.name" name='name' #itemName>
           </mat-form-field>
           <button mat-button type='submit'>
             <mat-icon>done</mat-icon>
@@ -23,7 +22,7 @@
       <mat-icon>delete</mat-icon>
     </button>
 
-    <button mat-button *ngIf="!editMode" (click)="onEditStart(i)">
+    <button mat-button *ngIf="!editMode" (click)="editMode = true">
       <mat-icon>edit</mat-icon>
     </button>
 
