@@ -9,7 +9,7 @@
       <mat-panel-title *ngIf="editMode">
         <form (ngSubmit)='onEdit(i, f)' #f='ngForm'>
           <mat-form-field>
-            <input matInput type="text" [ngModel]="item.name" name='name' #itemName>
+            <input matInput type="text" [ngModel]="item.name" name='name'>
           </mat-form-field>
           <button mat-button type='submit'>
             <mat-icon>done</mat-icon>

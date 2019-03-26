@@ -14,6 +14,7 @@ import { MyListsComponent } from './my-lists/my-lists.component';
 import { NavComponent } from './nav/nav.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
+import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-dele
   entryComponents: [
     DialogDeleteComponent
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, ShoppingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

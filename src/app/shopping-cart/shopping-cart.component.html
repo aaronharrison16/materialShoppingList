@@ -1,20 +1,30 @@
 <mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let item of cartItems; let i = index">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Item Name
+      <mat-panel-title *ngIf="!editMode">
+        {{ item.name }}
+      </mat-panel-title>
+      <mat-panel-title *ngIf="editMode">
+        <form (ngSubmit)='onEdit(i, f)' #f='ngForm'>
+          <mat-form-field>
+            <input matInput type="text" [ngModel]="item.name" name='name' #cartItemName>
+          </mat-form-field>
+          <button mat-button type='submit'>
+            <mat-icon>done</mat-icon>
+          </button>
+        </form>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-button>
+    <button mat-button (click)="onDelete(i)">
       <mat-icon>delete</mat-icon>
     </button>
 
-    <button mat-button>
+    <button mat-button *ngIf="!editMode" (click)="editMode = true">
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button (click)='onShoppingCartRemove()' mat-button>
+    <button mat-button *ngIf="!editMode" (click)="onShoppingCartRemove()">
       <mat-icon>remove_shopping_cart</mat-icon>
     </button>
   </mat-expansion-panel>

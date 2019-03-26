@@ -18,11 +18,6 @@ export class ShoppingListService {
     this.itemsChanged.next(this.items.slice());
   }
 
-  addItems(items: ListItem[]) {
-    this.items.push(...items);
-    this.itemsChanged.next(this.items.slice())
-  };
-
   updateItem(index: number, item: ListItem) {
     this.items[index] = item;
     this.itemsChanged.next(this.items.slice());
@@ -30,6 +25,6 @@ export class ShoppingListService {
 
   deleteItem(index: number) {
     this.items.splice(index, 1);
-    this.itemsChanged.next(this.items.slice())
+    this.itemsChanged.next(this.items.slice());
   }
 }
