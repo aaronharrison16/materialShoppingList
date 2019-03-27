@@ -5,6 +5,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSnackBarModule, MatDialogModule } from "@angular/material";
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from "@angular/http";
 
 import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
@@ -15,6 +16,7 @@ import { NavComponent } from './nav/nav.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
 import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
+import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
     ShoppingCartComponent,
     MyListsComponent,
     NavComponent,
-    DialogDeleteComponent
+    DialogDeleteComponent,
+    ClearDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,10 +44,12 @@ import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
     MatInputModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpModule
   ],
   entryComponents: [
-    DialogDeleteComponent
+    DialogDeleteComponent,
+    ClearDialogComponent
   ],
   providers: [ShoppingListService, ShoppingCartService],
   bootstrap: [AppComponent]

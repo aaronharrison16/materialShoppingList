@@ -14,6 +14,11 @@ export class ShoppingCartService {
     return this.cartItems.slice();
   }
 
+  addItem(item: ListItem) {
+    this.cartItems.push(item);
+    this.cartItemsChanged.next(this.cartItems.slice());
+  }
+
   deleteCartItem(index: number) {
     this.cartItems.splice(index, 1);
     this.cartItemsChanged.next(this.cartItems.slice());
@@ -22,5 +27,9 @@ export class ShoppingCartService {
   updateCartItem(index: number, cartItem: ListItem) {
     this.cartItems[index] = cartItem;
     this.cartItemsChanged.next(this.cartItems.slice());
+  }
+
+  clearCartItems() {
+    this.cartItemsChanged.next(this.cartItems = []);
   }
 }

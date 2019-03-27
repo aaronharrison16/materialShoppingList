@@ -5,6 +5,8 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { DialogDeleteComponent } from '../shopping-list/dialog-delete/dialog-delete.component';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { ClearDialogComponent } from '../clear-dialog/clear-dialog.component';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -18,7 +20,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   form: NgForm
   editMode = false;
 
-  constructor(private scService: ShoppingCartService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private scService: ShoppingCartService, private slService: ShoppingListService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.cartItems = this.scService.getCartItems();
@@ -34,7 +36,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  onShoppingCartRemove() {
+  onShoppingCartRemove(item: ListItem, index) {
+    this.slService.addItem(item);
+    this.scService.deleteCartItem(index);
     this.snackbar.open('The Item has been removed from the cart and is back on your list.', 'Dismiss', {duration: 4000})
   }
 
@@ -51,5 +55,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     const cartItem = new ListItem(form.value.name);
     this.scService.updateCartItem(index, cartItem);
     this.editMode= false
+  }
+
+  onClear() {
+    const dialogRef = this.dialog.open(ClearDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.scService.clearCartItems();
+      }
+    });
   }
 }

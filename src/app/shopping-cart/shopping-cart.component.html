@@ -24,13 +24,13 @@
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button mat-button *ngIf="!editMode" (click)="onShoppingCartRemove()">
+    <button mat-button *ngIf="!editMode" (click)="onShoppingCartRemove(item, i)">
       <mat-icon>remove_shopping_cart</mat-icon>
     </button>
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-button style="float: right;">
+<button mat-button (click)="onClear()" style="float: right;">
   <mat-icon>clear_all</mat-icon>
   Clear Cart
 </button>

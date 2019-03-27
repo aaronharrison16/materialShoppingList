@@ -27,4 +27,8 @@ export class ShoppingListService {
     this.items.splice(index, 1);
     this.itemsChanged.next(this.items.slice());
   }
+
+  clearList() {
+    this.itemsChanged.next(this.items = []);
+  }
 }

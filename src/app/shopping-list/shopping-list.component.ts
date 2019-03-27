@@ -5,6 +5,8 @@ import { ShoppingListService } from './shopping-list.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { NgForm } from '@angular/forms';
+import { ClearDialogComponent } from '../clear-dialog/clear-dialog.component';
+import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -18,7 +20,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   form: NgForm;
   editMode = false;
   
-  constructor(private slService: ShoppingListService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private slService: ShoppingListService, private scService: ShoppingCartService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.items = this.slService.getItems();
@@ -34,7 +36,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onShoppingCartAdd() {
+  onShoppingCartAdd(item: ListItem, index) {
+    this.scService.addItem(item);
+    this.slService.deleteItem(index);
     this.snackbar.open('The item has been moved to your cart.', 'Dismiss', {duration: 3000});
   }
 
@@ -52,5 +56,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     const item = new ListItem(value.name);
     this.slService.updateItem(index, item);
     this.editMode = false;
+  }
+
+  onClear() {
+    const dialogRef = this.dialog.open(ClearDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.slService.clearList();
+      }
+    });
   }
 }
