@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { map, catchError } from "rxjs/operators";
+
 
 import { ListItem } from '../shared/list-item.model';
 
@@ -17,7 +19,7 @@ export class ShoppingListService {
   ];
 
   getItems() {
-    return this.items.slice();
+    return this.http.get<ListItem[]>(this.shoppingListUrl);
   }
 
   addItem(item: ListItem) {
