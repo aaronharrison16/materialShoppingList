@@ -5,7 +5,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSnackBarModule, MatDialogModule } from "@angular/material";
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
@@ -31,6 +31,7 @@ import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -45,7 +46,6 @@ import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
     MatExpansionModule,
     MatSnackBarModule,
     MatDialogModule,
-    HttpModule
   ],
   entryComponents: [
     DialogDeleteComponent,
