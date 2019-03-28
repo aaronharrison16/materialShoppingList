@@ -10,15 +10,14 @@ import { NgForm } from '@angular/forms';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  constructor( private slService: ShoppingListService ) { }
+  constructor( private slService: ShoppingListService, ) { }
 
   ngOnInit() {
   }
 
   onAddItem(form: NgForm) {
-    const value = form.value
-    const newItem = new ListItem(value.name)
-    this.slService.addItem(newItem);
-    form.reset()
+    const newItem = new ListItem(form.value.name)
+    this.slService.addItem(newItem).subscribe()
+    form.reset();
   }
 }

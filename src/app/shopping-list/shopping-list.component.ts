@@ -46,7 +46,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.slService.deleteItem(index);
+        this.slService.deleteItem(index).subscribe();
       }
     });
   }
@@ -54,7 +54,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   onEdit(index, form) {
     const value = form.value;
     const item = new ListItem(value.name);
-    this.slService.updateItem(index, item);
+    this.slService.updateItem(index, item).subscribe();
     this.editMode = false;
   }
 
@@ -62,7 +62,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ClearDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.slService.clearList();
+        this.slService.clearItems().subscribe();
       }
     });
   }
