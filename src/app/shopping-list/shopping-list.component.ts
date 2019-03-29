@@ -25,7 +25,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.slService.getItems()
       .subscribe(item => {this.items = item});
-      console.log(this.items)
     this.subscription = this.slService.itemsChanged
       .subscribe(
         (items: ListItem[]) => {
@@ -36,6 +35,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onAddItem(form: NgForm) {
+    const newItem = new ListItem(form.value.name)
+    this.slService.addItem(newItem).subscribe(item => this.ite)
+    form.reset();
   }
 
   onShoppingCartAdd(item: ListItem, index) {
