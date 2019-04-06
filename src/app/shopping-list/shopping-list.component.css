@@ -1,9 +1,9 @@
-mat-form-field {
+.add-item-input {
   width: 70%;
   padding: 5%;
 }
 
-button.submit {
+.add-button {
   height: 60px;
   font-size: 2em;
 }
