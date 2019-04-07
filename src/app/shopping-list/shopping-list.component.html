@@ -1,15 +1,13 @@
-<div>
-  <form (ngSubmit)='onAddItem(f)' #f="ngForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Add Item</mat-label>
-      <input matInput type="text" required ngModel name="name">
-    </mat-form-field>
+<form (ngSubmit)='onAddItem(f)' #f="ngForm">
+  <mat-form-field class="add-item-input" appearance="outline">
+    <mat-label>Add Item</mat-label>
+    <input matInput type="text" required ngModel name="name">
+  </mat-form-field>
 
-    <button mat-button [disabled]='!f.valid' type="submit">
-      <mat-icon>add_circle</mat-icon>
-    </button>
-  </form>
-</div>
+  <button class="add-button" mat-button [disabled]='!f.valid' type="submit">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</form>
 
 <mat-accordion>
   <mat-expansion-panel *ngFor="let item of items; let i = index">
@@ -29,7 +27,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-button (click)="onDelete(i)">
+    <button mat-button (click)="onDelete(item)">
       <mat-icon>delete</mat-icon>
     </button>
 

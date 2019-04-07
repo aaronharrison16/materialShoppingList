@@ -1,47 +1,31 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { map, catchError } from "rxjs/operators";
-
-
 import { ListItem } from '../shared/list-item.model';
 
 @Injectable()
 export class ShoppingListService {
   constructor(private http: HttpClient) { }
   shoppingListUrl = "https://shopping-list-material.firebaseio.com/shopping-list.json";  
-  
-  itemsChanged = new Subject<ListItem[]>();
-  items: ListItem[] = [
-    new ListItem('Apples'),
-    new ListItem('Tomatoes'),
-    new ListItem('Pears'),
-  ];
+  items: ListItem[] = []
 
   getItems() {
-    return this.http.get<ListItem[]>(this.shoppingListUrl);
+    return this.http.get<ListItem>(this.shoppingListUrl)
   }
 
-  addItem(item: ListItem) {
-    this.items.push(item);
-    this.itemsChanged.next(this.items.slice());
-    return this.http.put(this.shoppingListUrl, this.getItems());
+  addItem(item: ListItem): Observable<ListItem> {
+    return this.http.post<ListItem>(this.shoppingListUrl, item);
   }
 
-  updateItem(index: number, item: ListItem) {
-    this.items[index] = item;
-    this.itemsChanged.next(this.items.slice());
-    return this.http.put(this.shoppingListUrl, this.getItems());
+  updateItem(items: ListItem[]) {
+    return this.http.put(this.shoppingListUrl, items);
   }
 
-  deleteItem(index: number): Observable<{}> {
-    this.items.splice(index, 1);
-    this.itemsChanged.next(this.items.slice());
-    return this.http.put(this.shoppingListUrl, this.getItems());
+  deleteItem(items: ListItem[]): Observable<{}> {
+    return this.http.put(this.shoppingListUrl, items);
   }
 
   clearItems() {
-    this.itemsChanged.next(this.items = []);
-    return this.http.put(this.shoppingListUrl, this.getItems());
+    return this.http.put(this.shoppingListUrl, this.items);
   }
 }
