@@ -6,7 +6,6 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { NgForm } from '@angular/forms';
 import { ClearDialogComponent } from '../clear-dialog/clear-dialog.component';
 import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
@@ -15,11 +14,10 @@ import { Subject } from 'rxjs';
 })
 
 export class ShoppingListComponent implements OnInit {
-  itemsChanged = new Subject<ListItem[]>();
   items: ListItem[];
-  itemsKeys: string[]
   index: number;
   form: NgForm;
+  item: ListItem;
   editMode = false;
   
   constructor(private slService: ShoppingListService, private scService: ShoppingCartService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
@@ -28,25 +26,22 @@ export class ShoppingListComponent implements OnInit {
     this.slService.getItems()
       .subscribe(item => {
         this.items = Object.values(item);
-        this.itemsKeys = Object.keys(item);
       });
   }
 
-  onAddItem(form: NgForm) {
+  onAddItem(form) {
     const newItem = new ListItem(form.value.name)
     this.items.push(newItem);
-    this.itemsChanged.next(this.items.slice());
     this.slService.addItem(newItem).subscribe(item => this.items)
     form.reset();
   }
 
-  onDelete(item: ListItem) {
+  onDelete(item) {
     const dialogRef = this.dialog.open(DialogDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.items = this.items.filter(i => i !== item)
         this.slService.deleteItem(this.items).subscribe();
-        this.itemsChanged.next(this.items.slice());
       }
     });
   }
@@ -58,7 +53,7 @@ export class ShoppingListComponent implements OnInit {
     this.editMode = false;
   }
 
-  onShoppingCartAdd(item: ListItem, index) {
+  onShoppingCartAdd(item, index) {
     this.scService.addItem(item);
     this.slService.deleteItem(index);
     this.snackbar.open('The item has been moved to your cart.', 'Dismiss', { duration: 3000 });
