@@ -13,9 +13,10 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit, OnDestroy {
+export class ShoppingCartComponent implements OnInit {
   private subscription: Subscription
   cartItems: ListItem[];
+  item: ListItem;
   index: number;
   form: NgForm
   editMode = false;
@@ -23,37 +24,32 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   constructor(private scService: ShoppingCartService, private slService: ShoppingListService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.cartItems = this.scService.getCartItems();
-    this.subscription = this.scService.cartItemsChanged
-      .subscribe(
-        (cartItems: ListItem[]) => {
-          this.cartItems = cartItems;
-        }
-      )
+    this.scService.getCartItems().subscribe(
+      item => { this.cartItems = Object.values(item)}
+    );
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe()
-  }
-
-  onShoppingCartRemove(item: ListItem, index) {
-    this.slService.addItem(item);
-    this.scService.deleteCartItem(index);
+  onShoppingCartRemove(item) {
+    this.slService.addItem(item).subscribe();
+    this.cartItems = this.cartItems.filter(i => i !== item)
+    this.scService.deleteCartItem(this.cartItems).subscribe();
     this.snackbar.open('The Item has been removed from the cart and is back on your list.', 'Dismiss', {duration: 4000})
   }
 
-  onDelete(index) {
+  onDelete(item) {
     const dialogRef = this.dialog.open(DialogDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.scService.deleteCartItem(index);
+        this.cartItems = this.cartItems.filter(i => i !== item)
+        this.scService.deleteCartItem(this.cartItems).subscribe();
       }
     });
   }
 
   onEdit(index, form) {
     const cartItem = new ListItem(form.value.name);
-    this.scService.updateCartItem(index, cartItem);
+    this.cartItems[index] = cartItem;
+    this.scService.updateCartItem(this.cartItems).subscribe();
     this.editMode= false
   }
 
@@ -61,7 +57,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ClearDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.scService.clearCartItems();
+        this.scService.clearCartItems().subscribe();
       }
     });
   }

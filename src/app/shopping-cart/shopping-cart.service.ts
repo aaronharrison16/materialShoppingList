@@ -1,35 +1,33 @@
 import { ListItem } from '../shared/list-item.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class ShoppingCartService {
+  shoppingCartUrl = "https://shopping-list-material.firebaseio.com/shopping-cart.json";
   cartItemsChanged = new Subject<ListItem[]>();
-  private cartItems: ListItem[] = [
-    new ListItem('Bread'),
-    new ListItem('Honey'),
-    new ListItem('Ground Beef')
-  ];
+  private cartItemEmpty: ListItem[] = [];
+
+  constructor(private http: HttpClient) { }
 
   getCartItems() {
-    return this.cartItems.slice();
+    return this.http.get<ListItem>(this.shoppingCartUrl);
   }
 
   addItem(item: ListItem) {
-    this.cartItems.push(item);
-    this.cartItemsChanged.next(this.cartItems.slice());
+    return this.http.post(this.shoppingCartUrl, item);
   }
 
-  deleteCartItem(index: number) {
-    this.cartItems.splice(index, 1);
-    this.cartItemsChanged.next(this.cartItems.slice());
+  deleteCartItem(cartItems: ListItem[]) {
+    return this.http.put(this.shoppingCartUrl, cartItems);
   }
 
-  updateCartItem(index: number, cartItem: ListItem) {
-    this.cartItems[index] = cartItem;
-    this.cartItemsChanged.next(this.cartItems.slice());
+  updateCartItem( cartItems: ListItem[] ) {
+    return this.http.put(this.shoppingCartUrl, cartItems );
   }
 
   clearCartItems() {
-    this.cartItemsChanged.next(this.cartItems = []);
+    return this.http.put(this.shoppingCartUrl, this.cartItemEmpty);
   }
 }

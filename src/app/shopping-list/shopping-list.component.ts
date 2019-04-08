@@ -53,9 +53,10 @@ export class ShoppingListComponent implements OnInit {
     this.editMode = false;
   }
 
-  onShoppingCartAdd(item, index) {
-    this.scService.addItem(item);
-    this.slService.deleteItem(index);
+  onShoppingCartAdd(item) {
+    this.scService.addItem(item).subscribe();
+    this.items = this.items.filter(i => i !== item)
+    this.slService.deleteItem(this.items).subscribe();
     this.snackbar.open('The item has been moved to your cart.', 'Dismiss', { duration: 3000 });
   }
 

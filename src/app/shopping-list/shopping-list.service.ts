@@ -10,7 +10,7 @@ export class ShoppingListService {
   items: ListItem[] = []
 
   getItems() {
-    return this.http.get<ListItem>(this.shoppingListUrl)
+    return this.http.get<ListItem>(this.shoppingListUrl);
   }
 
   addItem(item: ListItem): Observable<ListItem> {
