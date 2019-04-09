@@ -5,9 +5,10 @@ import { ListItem } from '../shared/list-item.model';
 
 @Injectable()
 export class ShoppingListService {
-  constructor(private http: HttpClient) { }
   shoppingListUrl = "https://shopping-list-material.firebaseio.com/shopping-list.json";  
   items: ListItem[] = []
+  
+  constructor(private http: HttpClient) { }
 
   getItems() {
     return this.http.get<ListItem>(this.shoppingListUrl);
