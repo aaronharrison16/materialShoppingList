@@ -29,9 +29,6 @@ export class ShoppingCartComponent implements OnInit {
         if (item !== null) {
           this.cartItems = Object.values(item)
         }
-        else {
-          this.cartItems = [];
-        }
       });
   }
 
