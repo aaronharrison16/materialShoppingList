@@ -25,8 +25,14 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {
     this.scService.getCartItems().subscribe(
-      item => { this.cartItems = Object.values(item)}
-    );
+      item => { 
+        if (item !== null) {
+          this.cartItems = Object.values(item)
+        }
+        else {
+          this.cartItems = [];
+        }
+      });
   }
 
   onShoppingCartRemove(item) {
@@ -58,6 +64,7 @@ export class ShoppingCartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.scService.clearCartItems().subscribe();
+        this.cartItems = []
       }
     });
   }

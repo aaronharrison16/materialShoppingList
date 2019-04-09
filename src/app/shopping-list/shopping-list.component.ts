@@ -25,7 +25,11 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit() {
     this.slService.getItems()
       .subscribe(item => {
-        this.items = Object.values(item);
+        if (item !== null ) {
+          this.items = Object.values(item);}
+        else {
+          this.items = [];
+        }
       });
   }
 
