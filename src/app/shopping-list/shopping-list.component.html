@@ -10,15 +10,15 @@
 </form>
 
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let item of items; let i = index">
+  <mat-expansion-panel *ngFor="let item of items">
     <mat-expansion-panel-header>
       <mat-panel-title *ngIf="!editMode">
-        {{ item.name }}
+        {{ item.payload.doc.data().name }}
       </mat-panel-title>
       <mat-panel-title *ngIf="editMode">
-        <form (ngSubmit)='onEdit(i, f)' #f='ngForm'>
+        <form (ngSubmit)='onEdit(item, f)' #f='ngForm'>
           <mat-form-field>
-            <input matInput type="text" [ngModel]="item.name" name='name'>
+            <input matInput type="text" [ngModel]="item.payload.doc.data().name" name='name'>
           </mat-form-field>
           <button mat-button type='submit'>
             <mat-icon>done</mat-icon>
@@ -35,7 +35,7 @@
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button mat-button *ngIf="!editMode" (click)="onShoppingCartAdd(item, i)">
+    <button mat-button *ngIf="!editMode" (click)="onShoppingCartAdd(item)">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
   </mat-expansion-panel>

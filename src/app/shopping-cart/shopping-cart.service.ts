@@ -1,33 +1,29 @@
-import { ListItem } from '../shared/list-item.model';
-import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class ShoppingCartService {
-  shoppingCartUrl = "https://shopping-list-material.firebaseio.com/shopping-cart.json";
-  cartItemsChanged = new Subject<ListItem[]>();
-  private cartItemEmpty: ListItem[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(public db:AngularFirestore) { }
 
   getCartItems() {
-    return this.http.get<ListItem>(this.shoppingCartUrl);
+    return this.db.collection('shopping-cart').snapshotChanges();
   }
 
-  addItem(item: ListItem) {
-    return this.http.post(this.shoppingCartUrl, item);
+  addItem(name) {
+    return this.db.collection('shopping-cart').add({
+      name: name
+    })
   }
 
-  deleteCartItem(cartItems: ListItem[]) {
-    return this.http.put(this.shoppingCartUrl, cartItems);
+  deleteCartItem(itemKey) {
+    return this.db.collection('shopping-cart').doc(itemKey).delete()
   }
 
-  updateCartItem( cartItems: ListItem[] ) {
-    return this.http.put(this.shoppingCartUrl, cartItems );
+  updateCartItem( itemKey, value ) {
+    return this.db.collection('shopping-cart').doc(itemKey).set({ name: value });
   }
 
   clearCartItems() {
-    return this.http.put(this.shoppingCartUrl, this.cartItemEmpty);
   }
 }

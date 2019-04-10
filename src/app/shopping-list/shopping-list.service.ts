@@ -1,32 +1,35 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { ListItem } from '../shared/list-item.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class ShoppingListService {
-  shoppingListUrl = "https://shopping-list-material.firebaseio.com/shopping-list.json";  
-  items: ListItem[] = []
   
-  constructor(private http: HttpClient) { }
+  constructor(public db:AngularFirestore) { }
 
   getItems() {
-    return this.http.get<ListItem>(this.shoppingListUrl);
+    return this.db.collection('shopping-list').snapshotChanges();
   }
 
-  addItem(item: ListItem): Observable<ListItem> {
-    return this.http.post<ListItem>(this.shoppingListUrl, item);
+  addItem(value) {
+    return this.db.collection('shopping-list').add({
+      name: value.value.name
+    })
   }
 
-  updateItem(items: ListItem[]) {
-    return this.http.put(this.shoppingListUrl, items);
+  deleteItem(itemKey) {
+    return this.db.collection('shopping-list').doc(itemKey).delete()
   }
 
-  deleteItem(items: ListItem[]): Observable<{}> {
-    return this.http.put(this.shoppingListUrl, items);
+  updateItem(itemKey, value) {
+    return this.db.collection('shopping-list').doc(itemKey).set({name: value});
   }
 
   clearItems() {
-    return this.http.put(this.shoppingListUrl, this.items);
+  }
+
+  returnToList(item) {
+    return this.db.collection('shopping-list').add({
+      name: item
+    })
   }
 }
