@@ -53,7 +53,7 @@ export class ShoppingCartComponent implements OnInit {
     const dialogRef = this.dialog.open(ClearDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('***TODO***')
+        this.scService.clearCartItems(this.cartItems);
       }
     });
   }

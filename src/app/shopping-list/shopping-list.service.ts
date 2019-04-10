@@ -17,14 +17,17 @@ export class ShoppingListService {
   }
 
   deleteItem(itemKey) {
-    return this.db.collection('shopping-list').doc(itemKey).delete()
+    return this.db.collection('shopping-list').doc(itemKey).delete();
   }
 
   updateItem(itemKey, value) {
     return this.db.collection('shopping-list').doc(itemKey).set({name: value});
   }
 
-  clearItems() {
+  clearItems(items) {
+    for(let item of items) {
+      this.db.collection('shopping-list').doc(item.payload.doc.id).delete();  
+    }
   }
 
   returnToList(item) {

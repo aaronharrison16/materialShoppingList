@@ -58,7 +58,7 @@ export class ShoppingListComponent implements OnInit {
     const dialogRef = this.dialog.open(ClearDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("***TODO***")
+        this.slService.clearItems(this.items);
       }
     });
   }

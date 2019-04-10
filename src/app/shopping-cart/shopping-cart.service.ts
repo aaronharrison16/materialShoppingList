@@ -24,6 +24,9 @@ export class ShoppingCartService {
     return this.db.collection('shopping-cart').doc(itemKey).set({ name: value });
   }
 
-  clearCartItems() {
+  clearCartItems(cartItems) {
+    for (let item of cartItems) {
+      this.db.collection('shopping-cart').doc(item.payload.doc.id).delete();
+    }
   }
 }
