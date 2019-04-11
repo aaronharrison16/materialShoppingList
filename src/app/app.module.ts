@@ -5,9 +5,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSnackBarModule, MatDialogModule } from "@angular/material";
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -28,13 +28,13 @@ import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
     MyListsComponent,
     NavComponent,
     DialogDeleteComponent,
-    ClearDialogComponent
+    ClearDialogComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     BrowserModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
