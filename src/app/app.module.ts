@@ -13,7 +13,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { MyListsComponent } from './my-lists/my-lists.component';
 import { NavComponent } from './nav/nav.component';
 import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
 import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
@@ -28,7 +27,6 @@ import { DialogSignOutComponent } from './dialog-sign-out/dialog-sign-out.compon
     AppComponent,
     ShoppingListComponent,
     ShoppingCartComponent,
-    MyListsComponent,
     NavComponent,
     DialogDeleteComponent,
     ClearDialogComponent,
