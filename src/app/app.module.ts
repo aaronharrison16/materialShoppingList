@@ -15,12 +15,12 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { NavComponent } from './nav/nav.component';
 import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
-import { ClearDialogComponent } from './clear-dialog/clear-dialog.component';
+import { ClearDialogComponent } from './shared/clear-dialog/clear-dialog.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
-import { DialogSignOutComponent } from './dialog-sign-out/dialog-sign-out.component';
+import { DialogSignOutComponent } from './shared/dialog-sign-out/dialog-sign-out.component';
 
 @NgModule({
   declarations: [

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ShoppingCartService } from './shopping-cart.service';
 import { DialogDeleteComponent } from '../shopping-list/dialog-delete/dialog-delete.component';
-import { ClearDialogComponent } from '../clear-dialog/clear-dialog.component';
+import { ClearDialogComponent } from '../shared/clear-dialog/clear-dialog.component';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Component({

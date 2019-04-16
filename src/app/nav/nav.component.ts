@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { MatDialog } from '@angular/material';
-import { DialogSignOutComponent } from '../dialog-sign-out/dialog-sign-out.component';
+import { DialogSignOutComponent } from '../shared/dialog-sign-out/dialog-sign-out.component';
 
 @Component({
   selector: 'app-nav',
