@@ -21,4 +21,16 @@ export class AuthService {
         })
     })
   }
+
+  googleSignIn() {
+    this.fireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+  }
+
+  signOut() {
+    this.fireAuth.auth.signOut();
+  }
+
+  getToken() {
+    return this.fireAuth.idToken;
+  }
 }

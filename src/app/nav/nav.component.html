@@ -1,27 +1,39 @@
 <mat-toolbar color="primary">
-
   <button mat-button routerLink="/">
     <mat-icon>home</mat-icon>
-    Shopping List
   </button>
 
-  <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/shopping-list">
-      <mat-icon>line_weight</mat-icon>
-    </button>
-    <button mat-button routerLink="/shopping-cart">
-      <mat-icon>shopping_cart</mat-icon>
-    </button>
-    <button mat-raised-button class="sign-in-btn" (click)='onSignIn()'>
-      <img src="assets\SVG\32px-Google__G__Logo.svg.png">  
-      Sign In
-    </button>
+    <ng-template [ngIf]="token != null">
+      <button mat-button routerLink="/shopping-list">
+        <mat-icon>line_weight</mat-icon>
+      </button>
+      <button mat-button routerLink="/shopping-cart">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <button mat-button [mat-menu-trigger-for]="menu">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item  (click)="onSignOut()">
+          Sign Out
+        </button>
+      </mat-menu>
+    </ng-template>
   </div>
-  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-    <mat-icon>menu</mat-icon>
-  </button>
+
+    <ng-template [ngIf]="token == null">
+      <button mat-raised-button class="sign-in-btn" (click)='onSignIn()'>
+        <img src="assets\SVG\32px-Google__G__Logo.svg.png">  
+        Sign In
+      </button>
+    </ng-template>
+  <ng-template [ngIf]="token != null">
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-template>
 
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
@@ -33,8 +45,8 @@
     <mat-icon>shopping_cart</mat-icon>
     My Cart
   </button>
-  <button mat-menu-item (click)='onSignIn()'>
-    <mat-icon><img id='mobile-google-logo' alt='Google' src="assets\SVG\32px-Google__G__Logo.svg.png"></mat-icon>
-    Sign In
+  <button mat-menu-item (click)='onSignOut()'>
+    <mat-icon>person</mat-icon>
+    Sign Out
   </button>
 </mat-menu>

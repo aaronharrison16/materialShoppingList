@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
+import { MatDialog } from '@angular/material';
+import { DialogSignOutComponent } from '../dialog-sign-out/dialog-sign-out.component';
 
 @Component({
   selector: 'app-nav',
@@ -7,13 +9,31 @@ import { AuthService } from '../core/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  token: string = null;
 
-  constructor( public authService: AuthService) { }
+  constructor( 
+    public authService: AuthService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
+    this.authService.getToken()
+      .subscribe(
+        response => {this.token = response}
+      )
   }
 
   onSignIn() {
     this.authService.doGoogleLogin()
+  }
+
+  onSignOut() {
+    const dialogRef = this.dialog.open(DialogSignOutComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authService.signOut();
+      }
+    });
+    
   }
 }
