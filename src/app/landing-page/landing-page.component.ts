@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseAuth } from 'angularfire2';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor( private authService: AuthService ) { }
 
   ngOnInit() {
   }
 
+  onSignIn() {
+    this.authService.googleSignIn()
+  }
 }

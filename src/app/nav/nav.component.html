@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>
-  </button>
+  <ng-template [ngIf]="token != null">
+    <button mat-button routerLink="/shopping-list">
+      <mat-icon>home</mat-icon>
+    </button>
+  </ng-template>
 
   <span class="fill-remaining-space"></span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
