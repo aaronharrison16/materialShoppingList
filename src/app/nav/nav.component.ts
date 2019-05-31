@@ -17,10 +17,6 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.getToken()
-      .subscribe(
-        response => {this.token = response}
-      )
   }
 
   onSignIn() {

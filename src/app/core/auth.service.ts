@@ -29,8 +29,4 @@ export class AuthService {
   signOut() {
     this.fireAuth.auth.signOut();
   }
-
-  getToken() {
-    return this.fireAuth.idToken;
-  }
 }
