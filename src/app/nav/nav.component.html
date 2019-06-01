@@ -1,46 +1,63 @@
-<mat-toolbar color="primary">
-    <button mat-button routerLink="/">
-      <mat-icon>home</mat-icon>
-    </button>
+<div *ngIf="authService.user$ | async; then authenticated else guest">
 
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+</div>
+
+<ng-template #authenticated>
+  <mat-toolbar color="primary">
       <button mat-button routerLink="/shopping-list">
-        <mat-icon>line_weight</mat-icon>
+        <mat-icon>home</mat-icon>
       </button>
-      <button mat-button routerLink="/shopping-cart">
-        <mat-icon>shopping_cart</mat-icon>
-      </button>
-      <button mat-button [mat-menu-trigger-for]="menu">
-        <mat-icon>person</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item  (click)="onSignOut()">
-          Sign Out
-        </button>
-      </mat-menu>
-  </div>
 
-      <button mat-raised-button class="sign-in-btn" (click)='onSignIn()'>
-        <img src="assets\SVG\32px-Google__G__Logo.svg.png">  
-        Sign In
-      </button>
+    <span class="fill-remaining-space"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/shopping-list">
+          <mat-icon>line_weight</mat-icon>
+        </button>
+        <button mat-button routerLink="/shopping-cart">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+        <button mat-button [mat-menu-trigger-for]="menu">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item  (click)="onSignOut()">
+            Sign Out
+          </button>
+        </mat-menu>
+    </div>
+
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
       <mat-icon>menu</mat-icon>
     </button>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item routerLink="/shopping-list">
+      <mat-icon>line_weight</mat-icon>
+      My List
+    </button>
+    <button mat-menu-item routerLink="/shopping-cart">
+      <mat-icon>shopping_cart</mat-icon>
+      My Cart
+    </button>
+    <button mat-menu-item (click)='onSignOut()'>
+      <mat-icon>person</mat-icon>
+      Sign Out
+    </button>
+  </mat-menu>
+</ng-template>
 
-</mat-toolbar>
-<mat-menu x-position="before" #menu="matMenu">
-  <button mat-menu-item routerLink="/shopping-list">
-    <mat-icon>line_weight</mat-icon>
-    My List
-  </button>
-  <button mat-menu-item routerLink="/shopping-cart">
-    <mat-icon>shopping_cart</mat-icon>
-    My Cart
-  </button>
-  <button mat-menu-item (click)='onSignOut()'>
-    <mat-icon>person</mat-icon>
-    Sign Out
-  </button>
-</mat-menu>
+<ng-template #guest>
+  <mat-toolbar color="primary">
+    <button mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
+  
+    <span class="fill-remaining-space"></span>
+      
+    <button mat-raised-button class="sign-in-btn" (click)='onSignIn()'>
+      <img src="assets\SVG\32px-Google__G__Logo.svg.png">
+      Sign In
+    </button>
+  
+  </mat-toolbar>
+</ng-template>
