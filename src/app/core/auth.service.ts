@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-
-import * as firebase from 'firebase/app';
+import { auth } from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   
   user$: Observable<User>;
@@ -33,7 +30,7 @@ export class AuthService {
   }
 
   async googleSignin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new auth.GoogleAuthProvider();
     const credential = await this.fireAuth.auth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
   }
@@ -53,7 +50,7 @@ export class AuthService {
   }
 
   async signOut() {
+    await this.fireAuth.auth.signOut();
     this.router.navigate(['/']);
-    this.fireAuth.auth.signOut();
   }
 }
