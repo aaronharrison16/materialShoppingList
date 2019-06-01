@@ -11,7 +11,13 @@ export class ShoppingCartService {
     public db:AngularFirestore, 
     private authService:AuthService
   ) { 
-    this.authService.user$.subscribe(user => this.userId = user.uid)
+    this.authService.user$.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+      } else {
+        this.userId = null;
+      }
+    })
   }
   
 
