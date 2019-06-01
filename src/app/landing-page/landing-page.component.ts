@@ -9,12 +9,8 @@ import { AuthService } from '../core/auth.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor( private authService: AuthService ) { }
+  constructor( public authService: AuthService ) { }
 
   ngOnInit() {
-  }
-
-  onSignIn() {
-    this.authService.googleSignIn()
   }
 }

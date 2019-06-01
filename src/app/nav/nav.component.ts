@@ -9,8 +9,7 @@ import { DialogSignOutComponent } from '../shared/dialog-sign-out/dialog-sign-ou
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  token: string = null;
-
+  
   constructor( 
     public authService: AuthService,
     public dialog: MatDialog

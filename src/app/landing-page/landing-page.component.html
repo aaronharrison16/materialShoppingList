@@ -1,17 +1,42 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>TODO</mat-card-title>
-    <mat-card-subtitle>TODO TODO</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button class="sign-in-btn" color='primary' (click)='onSignIn()'>
-      <img src="assets\SVG\32px-Google__G__Logo.svg.png">
-      Sign In
-    </button>
-  </mat-card-actions>
-</mat-card>
+<div *ngIf="authService.user$ | async; then authenticated else guest">
+
+</div>
+
+<ng-template #authenticated>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>TODO</mat-card-title>
+      <mat-card-subtitle>TODO TODO</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      TODO TODO TODO TODO
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+
+<ng-template #guest>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>TODO</mat-card-title>
+      <mat-card-subtitle>TODO TODO</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        TODO TODO TODO TODO TODO TODO
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="sign-in-btn" color='primary' (click)='authService.googleSignin()'>
+        <img src="assets\SVG\32px-Google__G__Logo.svg.png">
+        Sign In
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>

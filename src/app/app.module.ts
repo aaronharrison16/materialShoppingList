@@ -17,10 +17,11 @@ import { NavComponent } from './nav/nav.component';
 import { DialogDeleteComponent } from './shopping-list/dialog-delete/dialog-delete.component';
 import { ClearDialogComponent } from './shared/clear-dialog/clear-dialog.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { DialogSignOutComponent } from './shared/dialog-sign-out/dialog-sign-out.component';
 
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
-import { DialogSignOutComponent } from './shared/dialog-sign-out/dialog-sign-out.component';
+import { AuthService } from './core/auth.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { DialogSignOutComponent } from './shared/dialog-sign-out/dialog-sign-out
     ClearDialogComponent,
     DialogSignOutComponent
   ],
-  providers: [ShoppingListService, ShoppingCartService],
+  providers: [ShoppingListService, ShoppingCartService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
