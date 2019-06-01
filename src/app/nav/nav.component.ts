@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
   }
 
   onSignIn() {
-    this.authService.doGoogleLogin()
+    this.authService.googleSignin()
   }
 
   onSignOut() {

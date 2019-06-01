@@ -1,45 +1,45 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from '../core/auth.service';
 
 @Injectable()
 export class ShoppingListService {
 
   userId: string;
   
-  constructor(public db:AngularFirestore, private afAuth: AngularFireAuth) {
-    this.afAuth.authState.subscribe(user => {
-      this.userId = user.uid
-    })
+  constructor(
+    public db:AngularFirestore,  
+    private authService:AuthService
+  ) {
+    this.authService.user$.subscribe(user => this.userId = user.uid)
   }
 
   getItems() {
-    console.log(this.userId)
-    return this.db.collection(`items/${this.userId}/shopping-list`).snapshotChanges();
+    return this.db.collection(`users/${this.userId}/shopping-list`).snapshotChanges();
   }
 
   addItem(value) {
-    return this.db.collection(`items/${this.userId}/shopping-list`).add({
+    return this.db.collection(`users/${this.userId}/shopping-list`).add({
       name: value.value.name,
     })
   }
 
   deleteItem(itemKey) {
-    return this.db.collection(`items/${this.userId}/shopping-list`).doc(itemKey).delete();
+    return this.db.collection(`users/${this.userId}/shopping-list`).doc(itemKey).delete();
   }
 
   updateItem(itemKey, value) {
-    return this.db.collection(`items/${this.userId}/shopping-list`).doc(itemKey).set({name: value});
+    return this.db.collection(`users/${this.userId}/shopping-list`).doc(itemKey).set({name: value});
   }
 
   clearItems(items) {
     for(let item of items) {
-      this.db.collection(`items/${this.userId}/shopping-list`).doc(item.payload.doc.id).delete();  
+      this.db.collection(`users/${this.userId}/shopping-list`).doc(item.payload.doc.id).delete();  
     }
   }
 
   returnToList(item) {
-    return this.db.collection(`items/${this.userId}/shopping-list`).add({
+    return this.db.collection(`users/${this.userId}/shopping-list`).add({
       name: item
     })
   }
