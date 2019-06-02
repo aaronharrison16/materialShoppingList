@@ -12,21 +12,23 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
   
   user$: Observable<User>;
+  public userId: string;
 
   constructor(
     private fireAuth: AngularFireAuth,
     private db: AngularFirestore,
     private router: Router
   ) { 
-      this.user$ = this.fireAuth.authState.pipe(
-        switchMap(user => {
-          if (user) {
-            return this.db.doc<User>(`users/${user.uid}`).valueChanges();
-          } else {
-            return of(null);
-          }
-        })
-      )
+    this.user$ = this.fireAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          this.userId = user.uid
+          return this.db.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    )
   }
 
   async googleSignin() {
