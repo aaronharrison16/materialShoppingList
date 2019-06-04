@@ -1,5 +1,12 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 mat-card {
-  margin:10%
+  margin:10%;
+  max-width: 400px;
 }
 
 .sign-in-btn {
@@ -7,7 +14,16 @@ mat-card {
   width: 100%;
 }
 
+.homepage-button {
+  width: 47%;
+}
+
 img {
   height: 20px; 
   margin-right: 4px;
+}
+
+.example-header-image {
+  background-image: url('../../assets/images/bitmoji-20190603072131.png');
+  background-size: cover;
 }

@@ -1,42 +1,61 @@
-<div *ngIf="authService.user$ | async; then authenticated else guest">
+<div class="wrapper">
+  <div *ngIf="authService.user$ | async; then authenticated else guest">
 
-</div>
+  </div>
 
-<ng-template #authenticated>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>TODO</mat-card-title>
-      <mat-card-subtitle>TODO TODO</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      TODO TODO TODO TODO
-    </mat-card-actions>
-  </mat-card>
-</ng-template>
-
-<ng-template #guest>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>TODO</mat-card-title>
-      <mat-card-subtitle>TODO TODO</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-        TODO TODO TODO TODO TODO TODO
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button class="sign-in-btn" color='primary' (click)='authService.googleSignin()'>
-        <img src="assets\SVG\32px-Google__G__Logo.svg.png">
-        Sign In
+  <ng-template #authenticated>
+    <mat-card class="landing-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Material Shopping List</mat-card-title>
+        <mat-card-subtitle>Simplify your Shopping</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is a simple shopping list application created with the intent of keeping your shopping trips painless and
+          organized.
+        </p>
+        <p>
+          To use the application all you need is a Gmail account. From there, you simply add your items to your list, and as you
+          add the items to your cart, add them to your cart in the app as well.
+        </p>
+        <p>
+          Simple as that.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+      <button mat-raised-button class="homepage-button" color='primary' routerLink="/shopping-list">
+        My List
       </button>
-    </mat-card-actions>
-  </mat-card>
-</ng-template>
+      <button mat-raised-button class="homepage-button" color='secondary' routerLink="/shopping-cart">
+        My Cart
+      </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+
+  <ng-template #guest>
+    <mat-card class="landing-card">
+      <mat-card-header>
+        <mat-card-title>Material Shopping List</mat-card-title>
+        <mat-card-subtitle>Simplify your Shopping</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is a simple shopping list application created with the intent of keeping your shopping trip painless and organized.
+          To use the application all you need is a Gmail account. From there, you simply add your items to your list, and as you
+          add the items to your cart physically, add them to your cart in the app as well.
+        </p>
+        <p>
+          Simple as that.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="sign-in-btn" color='primary' (click)='authService.googleSignin()'>
+          <img src="assets\SVG\32px-Google__G__Logo.svg.png">
+          Sign In
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+</div>
