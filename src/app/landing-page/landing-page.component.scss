@@ -37,9 +37,12 @@ img {
   bottom: 5px;
   width: 100%;
   a {
-    display: flex;
-    
+    text-decoration: none;
     color: #FFA000;
     padding: 7px 4em;
+    &:hover {
+      text-decoration: underline;
+      color: #F57C00;
+    }
   } 
 }
