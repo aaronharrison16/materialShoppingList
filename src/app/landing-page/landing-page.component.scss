@@ -1,0 +1,45 @@
+.landing-card {
+  margin:10%;
+  max-width: 400px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sign-in-btn {
+  margin: 5%;
+  width: 100%;
+}
+
+.homepage-button {
+  width: 47%;
+}
+
+img {
+  height: 20px; 
+  margin-right: 4px;
+}
+
+.header-image {
+  background-image: url('../../assets/images/bitmoji-20190603072131.png');
+  background-size: cover;
+}
+
+.contact-card {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: fixed;
+  bottom: 5px;
+  width: 100%;
+  a {
+    display: flex;
+    
+    color: #FFA000;
+    padding: 7px 4em;
+  } 
+}
