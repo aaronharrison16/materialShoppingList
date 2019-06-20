@@ -4,6 +4,7 @@ import { AuthService } from '../core/auth.service';
 
 @Injectable()
 export class ShoppingCartService {
+  private shoppingCart = `users/${this.authService.userId}/shopping-cart`;
 
   constructor(
     public db:AngularFirestore, 
@@ -12,26 +13,26 @@ export class ShoppingCartService {
   
 
   getCartItems() {
-    return this.db.collection(`users/${this.authService.userId}/shopping-cart`).snapshotChanges();
+    return this.db.collection(this.shoppingCart).snapshotChanges();
   }
 
   addItem(name) {
-    return this.db.collection(`users/${this.authService.userId}/shopping-cart`).add({
+    return this.db.collection(this.shoppingCart).add({
       name: name
     })
   }
 
   deleteCartItem(itemKey) {
-    return this.db.collection(`users/${this.authService.userId}/shopping-cart`).doc(itemKey).delete()
+    return this.db.collection(this.shoppingCart).doc(itemKey).delete()
   }
 
   updateCartItem( itemKey, value ) {
-    return this.db.collection(`users/${this.authService.userId}/shopping-cart`).doc(itemKey).set({ name: value });
+    return this.db.collection(this.shoppingCart).doc(itemKey).set({ name: value });
   }
 
   clearCartItems(cartItems) {
     for (let item of cartItems) {
-      this.db.collection(`users/${this.authService.userId}/shopping-cart`).doc(item.payload.doc.id).delete();
+      this.db.collection(this.shoppingCart).doc(item.payload.doc.id).delete();
     }
   }
 }
