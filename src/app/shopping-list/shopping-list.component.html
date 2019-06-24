@@ -41,7 +41,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-button (click)="onClear()" style="float: right;">
+<button *ngIf="items.length >= 1" mat-button (click)="onClear()" style="float: right;">
   <mat-icon>clear_all</mat-icon>
   Clear List
 </button>
